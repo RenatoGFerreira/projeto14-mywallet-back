@@ -1,0 +1,32 @@
+{
+  "name": "projeto14-mywallet-back",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Projeto my wallet - fullStack - Neste repositório o back end, mobile first, criado em Node.js e MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RenatoGFerreira/projeto14-mywallet-back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RenatoGFerreira/projeto14-mywallet-back/issues"
+  },
+  "homepage": "https://github.com/RenatoGFerreira/projeto14-mywallet-back#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^5.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
