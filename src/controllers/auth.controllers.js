@@ -1,14 +1,11 @@
-import { usersColletion } from "../database/db.js";
+import { sessionsCollection, usersColletion } from "../database/db.js";
 import bcrypt from "bcrypt"
+import {v4 as uuid} from "uuid"
 
 export async function cadastro(req, res){
     const user = res.locals.user
     console.log(user)
-
-    if(user.password !== user.passwordConfirm){
-        return res.status(409).send("A senha e a confirmação devem ser iguais")
-    }
-
+    
     const passwordHash = bcrypt.hashSync(user.password, 10)
 
     try{
@@ -21,5 +18,15 @@ export async function cadastro(req, res){
 }
 
 export async function signIn(req, res){
+    const user = res.locals.user
+    const token = uuid()
 
+    try{
+        await sessionsCollection.insertOne({token, userId: user._id})
+        res.send({token})
+    }catch(err){
+        res.status(500).send(err.message);
+    }
 }
+
+
