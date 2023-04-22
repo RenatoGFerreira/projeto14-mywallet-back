@@ -32,31 +32,41 @@ export async function signInValidation(req, res, next) {
     }
 
     res.locals.user = user;
-    next();
   } catch (err) {
     res.status(500).send(err.message);
   }
+
+  next();
 }
 
 export async function authRoutesValidation(req, res, next) {
   const { authorization } = req.headers;
   const token = authorization?.replace("Bearer ", "");
+  console.log(`token é igual a: ${token}`)
 
   if (!token) {
-    res.status(401).send("No token, not authorized.");
+    return res.status(401).send("token is not defined.");
   }
 
   try {
     const session = await sessionsCollection.findOne({ token });
-    const user = await usersColletion.findOne({ _id: session.userId });
+    console.log(`tokenSession é igual a: ${token}`)
+    console.log(`session é igual a: ${session}`)
+    if(session === null){
+      return res.status(401).send("session is not defined.")
+    }
+
+    const user = await usersColletion.findOne({ _id: session?.userId });
     if (!user) {
-      res.status(401).send("No user, not authorized");
+      return res.status(401).send("user is not defined.");
     }
 
     res.locals.user = user;
 
-    next();
+    
   } catch (err) {
     res.status(500).send(err.message);
   }
+  
+  next()
 }
