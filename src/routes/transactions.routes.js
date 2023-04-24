@@ -6,6 +6,6 @@ import { authRoutesValidation } from "../middlewares/authValidation.midlleware.j
 const router = Router();
 
 router.post("/nova-transacao", authRoutesValidation, transactionValidation, createTransaction );
-router.post("/nova-transacao", findTransaction );
+router.get("/nova-transacao", authRoutesValidation, findTransaction );
 
 export default router;

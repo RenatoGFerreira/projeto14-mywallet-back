@@ -29,6 +29,7 @@ export async function signInValidation(req, res, next) {
     const senhaOK = bcrypt.compareSync(password, user.password);
     if (!senhaOK) {
       res.status(401).send("Senha incorreto.");
+      console.log(senhaOK)
     }
 
     res.locals.user = user;
@@ -49,7 +50,7 @@ export async function authRoutesValidation(req, res, next) {
   }
 
   try {
-    const session = await sessionsCollection.findOne({ token });
+    const session = await sessionsCollection.findOne({ token: `${token}` });
     console.log(`tokenSession é igual a: ${token}`)
     console.log(`session é igual a: ${session}`)
     if(session === null){
@@ -62,6 +63,7 @@ export async function authRoutesValidation(req, res, next) {
     }
 
     res.locals.user = user;
+    console.log(`User is ${user}`)
 
     
   } catch (err) {
